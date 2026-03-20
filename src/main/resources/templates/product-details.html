@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="navbar">
+
+    <!-- LOGO -->
+    <h2>🛍 ShopEasy</h2>
+
+    <!-- SEARCH BAR -->
+    <form action="/search" method="get" class="search-bar">
+        <input type="text" name="query" placeholder="Search products...">
+        <button>🔍</button>
+    </form>
+
+    <!-- LINKS -->
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+
+        <a href="/cart" class="cart-link">
+            🛒 <span th:text="${cartCount}"></span>
+        </a>
+
+        <a href="/login">👤</a>
+    </div>
+
+</div>
+<div class="container">
+
+    <img th:src="${product.imageUrl}" style="width:300px">
+
+    <h1 th:text="${product.name}"></h1>
+    <p th:text="${product.description}"></p>
+    <h2 th:text="${product.price}"></h2>
+
+    <a href="/products">Back</a>
+
+</div>
+
+</body>
+</html>

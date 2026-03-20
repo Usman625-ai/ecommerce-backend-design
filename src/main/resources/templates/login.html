@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar">
+
+    <!-- LOGO -->
+    <h2>🛍 ShopEasy</h2>
+
+    <!-- SEARCH BAR -->
+    <form action="/search" method="get" class="search-bar">
+        <input type="text" name="query" placeholder="Search products...">
+        <button>🔍</button>
+    </form>
+
+    <!-- LINKS -->
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+
+        <a href="/cart" class="cart-link">
+            🛒 <span th:text="${cartCount}"></span>
+        </a>
+
+        <a href="/login">👤</a>
+    </div>
+
+</div>
+
+</body>
+</html>

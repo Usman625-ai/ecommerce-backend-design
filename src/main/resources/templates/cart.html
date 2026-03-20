@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cart</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar">
+
+    <!-- LOGO -->
+    <h2>🛍 ShopEasy</h2>
+
+    <!-- SEARCH BAR -->
+    <form action="/search" method="get" class="search-bar">
+        <input type="text" name="query" placeholder="Search products...">
+        <button>🔍</button>
+    </form>
+
+    <!-- LINKS -->
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+
+        <a href="/cart" class="cart-link">
+            🛒 <span th:text="${cartCount}"></span>
+        </a>
+
+        <a href="/login">👤</a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div th:each="item : ${cart}" class="cart-item">
+
+        <img th:src="${item.imageUrl}" width="120">
+
+        <div>
+            <h3 th:text="${item.name}"></h3>
+            <p th:text="${item.price}"></p>
+
+            <div>
+                <a th:href="@{'/decrease/' + ${item.productId}}">➖</a>
+                <span th:text="${item.quantity}"></span>
+                <a th:href="@{'/increase/' + ${item.productId}}">➕</a>
+            </div>
+
+            <a th:href="@{'/remove/' + ${item.productId}}" class="btn">Remove</a>
+        </div>
+
+    </div>
+
+    <h2>Total: <span th:text="${total}"></span></h2>
+
+    <a href="/checkout" class="btn">Checkout</a>
+
+</div>
+
+</body>
+</html>

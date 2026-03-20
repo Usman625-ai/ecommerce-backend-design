@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Products</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="navbar">
+
+    <!-- LOGO -->
+    <h2>🛍 ShopEasy</h2>
+
+    <!-- SEARCH BAR -->
+    <form action="/search" method="get" class="search-bar">
+        <input type="text" name="query" placeholder="Search products...">
+        <button>🔍</button>
+    </form>
+
+    <!-- LINKS -->
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+
+        <a href="/cart" class="cart-link">
+            🛒 <span th:text="${cartCount}"></span>
+        </a>
+
+        <a href="/login">👤</a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <form action="/search">
+        <input type="text" name="query" placeholder="Search products">
+        <button>Search</button>
+    </form>
+
+    <div class="grid">
+        <div class="card" th:each="p : ${products}">
+            <img th:src="${p.imageUrl}">
+            <div class="card-content">
+                <h3 th:text="${p.name}"></h3>
+                <p class="price" th:text="${p.price}"></p>
+                <a class="btn" th:href="@{'/add-to-cart/' + ${p.id}}">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a th:if="${currentPage > 0}" th:href="@{/products(page=${currentPage - 1})}">Prev</a>
+        <span th:text="${currentPage + 1}"></span>
+        <a th:if="${currentPage < totalPages - 1}" th:href="@{/products(page=${currentPage + 1})}">Next</a>
+    </div>
+
+</div>
+
+</body>
+</html>
