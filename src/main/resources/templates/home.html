@@ -1,51 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home</title>
+    <title>ShopEasy - Home</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script th:src="@{/js/main.js}" defer></script>
 </head>
 <body>
 
-<div class="navbar">
-
-    <!-- LOGO -->
-    <h2>🛍 ShopEasy</h2>
-
-    <!-- SEARCH BAR -->
-    <form action="/search" method="get" class="search-bar">
-        <input type="text" name="query" placeholder="Search products...">
-        <button>🔍</button>
-    </form>
-
-    <!-- LINKS -->
-    <div class="nav-links">
-        <a href="/">Home</a>
+<!-- Navbar -->
+<nav>
+    <a href="/">ShopEasy</a>
+    <div>
         <a href="/products">Products</a>
-
-        <a href="/cart" class="cart-link">
-            🛒 <span th:text="${cartCount}"></span>
+        <a href="/cart" id="cart-icon">
+            🛒 Cart (<span id="cart-count">0</span>)
         </a>
-
-        <a href="/login">👤</a>
+        <a href="/login">Login</a>
     </div>
+</nav>
 
+<!-- Search -->
+<div class="search-container">
+    <form action="/products" method="get">
+        <input type="text" name="query" placeholder="Search products...">
+        <button type="submit">Search</button>
+    </form>
 </div>
 
-<div class="container">
-    <h1>Featured Products</h1>
-
-    <div class="grid">
-        <div class="card" th:each="p : ${products}">
-            <img th:src="${p.imageUrl}">
-
-            <div class="card-content">
-                <h3 th:text="${p.name}"></h3>
-                <p class="price" th:text="${p.price}"></p>
-
-                <a class="btn" th:href="@{'/add-to-cart/' + ${p.id}}">Add to Cart</a>
-            </div>
-        </div>
+<h2>Featured Products</h2>
+<div class="product-grid">
+    <div class="product-card" th:each="p : ${products}">
+        <img th:src="@{'/images/' + ${p.imageUrl}}" alt="Product">
+        <h3 th:text="${p.name}"></h3>
+        <p class="price" th:text="${p.price} + ' PKR'"></p>
+        <button th:onclick="'addToCart(' + ${p.id} + ')'">Add to Cart</button>
     </div>
 </div>
 

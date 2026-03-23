@@ -3,60 +3,49 @@
 <head>
     <title>Cart</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="navbar">
-
-    <!-- LOGO -->
-    <h2>🛍 ShopEasy</h2>
-
-    <!-- SEARCH BAR -->
-    <form action="/search" method="get" class="search-bar">
-        <input type="text" name="query" placeholder="Search products...">
-        <button>🔍</button>
-    </form>
-
-    <!-- LINKS -->
-    <div class="nav-links">
-        <a href="/">Home</a>
+<nav>
+    <a href="/">ShopEasy</a>
+    <div>
         <a href="/products">Products</a>
-
-        <a href="/cart" class="cart-link">
-            🛒 <span th:text="${cartCount}"></span>
-        </a>
-
-        <a href="/login">👤</a>
+        <a href="/cart">Cart</a>
+        <a href="/login">Login</a>
     </div>
+</nav>
 
+<h2 style="text-align:center;">Your Cart</h2>
+
+<div th:if="${#lists.isEmpty(cart)}" style="text-align:center;">
+    <p>Cart is empty</p>
 </div>
 
-<div class="container">
-
-    <div th:each="item : ${cart}" class="cart-item">
-
-        <img th:src="${item.imageUrl}" width="120">
+<div class="cart-container">
+    <div class="cart-item" th:each="p : ${cart}">
+        <img th:src="@{'/images/' + ${p.imageUrl}}" width="100">
 
         <div>
-            <h3 th:text="${item.name}"></h3>
-            <p th:text="${item.price}"></p>
+            <h3 th:text="${p.name}"></h3>
+            <p th:text="${p.price} + ' PKR'"></p>
 
             <div>
-                <a th:href="@{'/decrease/' + ${item.productId}}">➖</a>
-                <span th:text="${item.quantity}"></span>
-                <a th:href="@{'/increase/' + ${item.productId}}">➕</a>
+                <a th:href="@{'/decrease/' + ${p.id}}">➖</a>
+                <span th:text="${p.quantity}"></span>
+                <a th:href="@{'/increase/' + ${p.id}}">➕</a>
             </div>
 
-            <a th:href="@{'/remove/' + ${item.productId}}" class="btn">Remove</a>
+            <a th:href="@{'/remove/' + ${p.id}}" style="color:red;">Remove</a>
         </div>
-
     </div>
+</div>
 
-    <h2>Total: <span th:text="${total}"></span></h2>
+<h3 style="text-align:center;">
+    Total: <span th:text="${total}"></span> PKR
+</h3>
 
-    <a href="/checkout" class="btn">Checkout</a>
-
+<div style="text-align:center;">
+    <a href="/" class="btn">Continue Shopping</a>
 </div>
 
 </body>

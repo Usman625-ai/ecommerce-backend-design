@@ -1,35 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="navbar">
+<nav>
+    <a href="/">ShopEasy</a>
+</nav>
 
-    <!-- LOGO -->
-    <h2>🛍 ShopEasy</h2>
+<div class="auth-box">
+    <h2>Login</h2>
 
-    <!-- SEARCH BAR -->
-    <form action="/search" method="get" class="search-bar">
-        <input type="text" name="query" placeholder="Search products...">
-        <button>🔍</button>
+    <form action="/login" method="post">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button type="submit">Login</button>
     </form>
 
-    <!-- LINKS -->
-    <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/products">Products</a>
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
 
-        <a href="/cart" class="cart-link">
-            🛒 <span th:text="${cartCount}"></span>
-        </a>
-
-        <a href="/login">👤</a>
-    </div>
-
+    <p>Don't have an account? <a href="/signup">Signup</a></p>
 </div>
 
 </body>

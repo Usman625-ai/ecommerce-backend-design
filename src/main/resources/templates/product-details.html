@@ -1,44 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Details</title>
+    <title>Product Details</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="navbar">
 
-    <!-- LOGO -->
-    <h2>🛍 ShopEasy</h2>
-
-    <!-- SEARCH BAR -->
-    <form action="/search" method="get" class="search-bar">
-        <input type="text" name="query" placeholder="Search products...">
-        <button>🔍</button>
-    </form>
-
-    <!-- LINKS -->
-    <div class="nav-links">
-        <a href="/">Home</a>
+<nav>
+    <a href="/">ShopEasy</a>
+    <div>
         <a href="/products">Products</a>
-
-        <a href="/cart" class="cart-link">
-            🛒 <span th:text="${cartCount}"></span>
-        </a>
-
-        <a href="/login">👤</a>
+        <a href="/cart">Cart</a>
     </div>
+</nav>
 
-</div>
-<div class="container">
+<div class="details-container">
 
-    <img th:src="${product.imageUrl}" style="width:300px">
+    <img th:src="@{'/images/' + ${product.imageUrl}}" width="300">
 
-    <h1 th:text="${product.name}"></h1>
-    <p th:text="${product.description}"></p>
-    <h2 th:text="${product.price}"></h2>
+    <div>
+        <h2 th:text="${product.name}"></h2>
+        <p th:text="${product.description}"></p>
+        <h3 th:text="${product.price} + ' PKR'"></h3>
 
-    <a href="/products">Back</a>
+        <a th:href="@{'/add-to-cart/' + ${product.id}}" class="btn">
+            Add to Cart
+        </a>
+    </div>
 
 </div>
 

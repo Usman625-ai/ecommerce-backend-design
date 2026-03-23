@@ -3,50 +3,27 @@
 <head>
     <title>Checkout</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="navbar">
 
-    <!-- LOGO -->
-    <h2>🛍 ShopEasy</h2>
-
-    <!-- SEARCH BAR -->
-    <form action="/search" method="get" class="search-bar">
-        <input type="text" name="query" placeholder="Search products...">
-        <button>🔍</button>
-    </form>
-
-    <!-- LINKS -->
-    <div class="nav-links">
-        <a href="/">Home</a>
+<nav>
+    <a href="/">ShopEasy</a>
+    <div>
         <a href="/products">Products</a>
-
-        <a href="/cart" class="cart-link">
-            🛒 <span th:text="${cartCount}"></span>
+        <a href="/cart" id="cart-icon">
+            🛒 Cart (<span id="cart-count">0</span>)
         </a>
-
-        <a href="/login">👤</a>
     </div>
+</nav>
 
-</div>
-<div class="container">
-    <h1>Checkout</h1>
+<h2>Checkout</h2>
 
-    <div th:each="item : ${cart}">
-        <p th:text="${item.name}"></p>
-    </div>
-
-    <h2>Enter Details</h2>
-
-    <form action="/place-order">
-        <input placeholder="Full Name">
-        <input placeholder="Address">
-        <input placeholder="Phone">
-        <button>Place Order</button>
-    </form>
-
-</div>
+<form action="/place-order" method="post">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="text" name="address" placeholder="Address" required>
+    <input type="text" name="phone" placeholder="Phone" required>
+    <button>Place Order</button>
+</form>
 
 </body>
 </html>

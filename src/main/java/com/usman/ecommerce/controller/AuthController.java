@@ -3,18 +3,18 @@ package com.usman.ecommerce.controller;
 import com.usman.ecommerce.model.User;
 import com.usman.ecommerce.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AuthController {
 
-    @Autowired
-    private UserService service;
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/login")
     public String loginPage() {
@@ -22,17 +22,19 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username,
+    public String login(@RequestParam String email,
                         @RequestParam String password,
-                        HttpSession session) {
+                        HttpSession session,
+                        Model model) {
 
-        User user = service.login(username, password);
+        User user = userService.login(email, password);
 
         if (user != null) {
             session.setAttribute("user", user);
             return "redirect:/";
         }
 
+        model.addAttribute("error", "Invalid credentials");
         return "login";
     }
 
@@ -43,7 +45,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public String signup(@ModelAttribute User user) {
-        service.register(user);
+        userService.register(user);
         return "redirect:/login";
     }
 

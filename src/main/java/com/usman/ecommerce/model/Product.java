@@ -14,6 +14,7 @@ public class Product {
     private String category;
     private String description;
     private int stock;
+    private int quantity;
 
     public Product() {}
 
@@ -26,6 +27,15 @@ public class Product {
         this.description = description;
         this.stock = stock;
         this.imageUrl = imageUrl;
+    }
+
+    public Product(Product p) {
+        this.id = p.getId();
+        this.name = p.getName();
+        this.price = p.getPrice();
+        this.category = p.getCategory();
+        this.description = p.getDescription();
+        this.imageUrl = p.getImageUrl();
     }
 
     // ✅ GETTERS (VERY IMPORTANT)
@@ -48,6 +58,8 @@ public class Product {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public int getQuantity(){return quantity; }
     // ✅ SETTERS
     public void setId(Long id) { this.id = id; }
 
@@ -60,4 +72,6 @@ public class Product {
     public void setDescription(String description) { this.description = description; }
 
     public void setStock(int stock) { this.stock = stock; }
+
+    public void setQuantity(int quantity){this.quantity = quantity;}
 }

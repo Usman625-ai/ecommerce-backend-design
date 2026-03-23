@@ -17,29 +17,29 @@ public class EcommerceApplication {
     CommandLineRunner init(ProductRepository repo) {
         return args -> {
 
-            repo.save(new Product(null, "iPhone 14", 999, "Mobile", "Apple phone", 10,
-                    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"));
+            repo.save(new Product(null, "iPhone 14", 455000, "Mobile", "Apple phone", 10,
+                    "Iphone14.jpg"));
 
-            repo.save(new Product(null, "Samsung S23", 850, "Mobile", "Samsung flagship", 15,
-                    "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf"));
+            repo.save(new Product(null, "GooglePixel", 125000, "Mobile", "GooglePixel flagship", 15,
+                    "GooglePixel.jpg"));
 
-            repo.save(new Product(null, "MacBook Pro", 2000, "Laptop", "Apple laptop", 5,
-                    "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"));
+            repo.save(new Product(null, "MacBook Pro", 198999, "Laptop", "Apple laptop", 5,
+                    "MacBook.jpg"));
 
-            repo.save(new Product(null, "Dell XPS", 1500, "Laptop", "Dell premium laptop", 7,
-                    "https://images.unsplash.com/photo-1587202372775-e229f172b9d7"));
+            repo.save(new Product(null, "Dell XPS", 150000, "Laptop", "Dell premium laptop", 7,
+                    "Laptop.jpg"));
 
-            repo.save(new Product(null, "Headphones", 200, "Accessories", "Wireless headphones", 20,
-                    "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd"));
+            repo.save(new Product(null, "Headphones", 35000, "Accessories", "Wireless headphones", 20,
+                    "Headphones.jpg"));
 
-            repo.save(new Product(null, "Smart Watch", 300, "Accessories", "Fitness smartwatch", 12,
-                    "https://images.unsplash.com/photo-1519744346363-d1c0d4c5c7c1"));
+            repo.save(new Product(null, "Smart Watch", 24000, "Accessories", "Fitness smartwatch", 12,
+                    "SmartPhone.jpg"));
 
-            repo.save(new Product(null, "Gaming Mouse", 80, "Accessories", "RGB gaming mouse", 25,
-                    "https://images.unsplash.com/photo-1587202372634-32705e3bf49c"));
+            repo.save(new Product(null, "Gaming Mouse", 8000, "Accessories", "RGB gaming mouse", 25,
+                    "Mouse.jpg"));
 
-            repo.save(new Product(null, "Mechanical Keyboard", 150, "Accessories", "RGB keyboard", 18,
-                    "https://images.unsplash.com/photo-1517331156700-3c241d2b4d83"));
+            repo.save(new Product(null, "Mechanical Keyboard", 14000, "Accessories", "RGB keyboard", 18,
+                    "KeyBoard.jpg"));
         };
     }
 }

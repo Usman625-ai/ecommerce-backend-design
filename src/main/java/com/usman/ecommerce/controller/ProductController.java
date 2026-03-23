@@ -3,77 +3,59 @@ package com.usman.ecommerce.controller;
 import com.usman.ecommerce.model.Product;
 import com.usman.ecommerce.service.ProductService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class ProductController {
 
-    @Autowired
-    private ProductService service;
+    private final ProductService productService;
 
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+
+    // Home Page
     @GetMapping("/")
     public String home(Model model, HttpSession session) {
-
-        model.addAttribute("products", service.getAll());
-
-        // ✅ ADD THIS
-        model.addAttribute("cartCount",
-                session.getAttribute("cart") == null ? 0 :
-                        ((java.util.List<?>) session.getAttribute("cart")).size()
-        );
-
+        model.addAttribute("products", productService.getTop10());
+        model.addAttribute("cartCount", getCartCount(session));
         return "home";
     }
 
+    // Products Page
     @GetMapping("/products")
-    public String products(@RequestParam(defaultValue = "0") int page,
-                           Model model,
-                           HttpSession session) {
-
-        Page<Product> productPage = service.getPaginated(page);
-
-        model.addAttribute("products", productPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", productPage.getTotalPages());
-
-        // ✅ ADD THIS LINE (IMPORTANT)
-        model.addAttribute("cartCount",
-                session.getAttribute("cart") == null ? 0 :
-                        ((java.util.List<?>) session.getAttribute("cart")).size()
-        );
-
-        return "products";
-    }
-
-    @GetMapping("/products/{id}")
-    public String details(@PathVariable Long id, Model model) {
-        model.addAttribute("product", service.getById(id));
-        return "product-details";
-    }
-
-    @GetMapping("/search")
-    public String search(@RequestParam String query, Model model) {
-        model.addAttribute("products", service.search(query));
-        return "products";
-    }
-
-    @GetMapping("/add")
-    public String addForm(HttpSession session) {
-
-        if (session.getAttribute("user") == null) {
-            return "redirect:/login";
+    public String products(Model model, @RequestParam(required = false) String query, HttpSession session) {
+        List<Product> products;
+        if (query != null && !query.isEmpty()) {
+            products = productService.search(query);
+        } else {
+            products = productService.getAll();
         }
-
-        return "add-product";
+        model.addAttribute("products", products);
+        model.addAttribute("cartCount", getCartCount(session));
+        return "products";
     }
 
-    @PostMapping("/add")
-    public String save(@ModelAttribute Product product) {
-        service.save(product);
-        return "redirect:/products";
+    // Product Details
+    @GetMapping("/products/{id}")
+    public String productDetails(@PathVariable Long id, Model model) {
+
+        Product product = productService.getById(id);
+
+        model.addAttribute("product", product);
+
+        return "product-details"; // MUST match file name
+    }
+
+    // Helper method to get cart count
+    private int getCartCount(HttpSession session) {
+        List<Product> cart = (List<Product>) session.getAttribute("cart");
+        return cart == null ? 0 : cart.size();
     }
 }

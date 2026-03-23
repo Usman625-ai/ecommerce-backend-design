@@ -16,6 +16,9 @@ public class ProductService {
     public List<Product> getAll() {
         return repo.findAll();
     }
+    public List<Product> getTop10() {
+        return repo.findAll().stream().limit(10).toList();
+    }
 
     public Product getById(Long id) {
         return repo.findById(id).orElse(null);
